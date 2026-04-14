@@ -30,6 +30,8 @@ async function drawChart() {
     color: d.color.trim()
   }));
 
+  data.forEach(d => console.log(d.color));
+  
   Highcharts.chart("container", {
     chart: {
        type: 'bubble',

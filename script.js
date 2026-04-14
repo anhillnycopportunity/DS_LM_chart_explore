@@ -12,7 +12,9 @@ async function loadCSV() {
       series: cols[0],
       x: parseFloat(cols[1]),
       y: parseFloat(cols[2]),
-      color: cols[3]
+      z: parseFloat(cols[3]),
+      color: cols[4],
+      note: cols[5],
     };
   });
 }
@@ -24,14 +26,19 @@ async function drawChart() {
   const data = rawData.map(d => ({
     x: d.x,
     y: d.y,
+    z: d.z,
     color: d.color,
-    name: d.series
+    name: d.series,
+    note: d.note
   }));
 
   Highcharts.chart("container", {
     chart: {
-      type: "scatter",
-      zoomType: "xy"
+       type: 'bubble',
+        plotBorderWidth: 1,
+        zooming: {
+            type: 'xy'
+        }
     },
 
     title: {

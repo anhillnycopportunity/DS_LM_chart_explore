@@ -13,8 +13,7 @@ async function loadCSV() {
       x: parseFloat(cols[1]),
       y: parseFloat(cols[2]),
       z: parseFloat(cols[3]),
-      color: cols[4],
-      note: cols[5],
+      color: cols[4]
     };
   });
 }
@@ -28,8 +27,7 @@ async function drawChart() {
     y: d.y,
     z: d.z,
     color: d.color,
-    name: d.series,
-    note: d.note
+    name: d.series
   }));
 
   Highcharts.chart("container", {

@@ -22,13 +22,20 @@ async function drawChart() {
   const rawData = await loadCSV();
 
   // Step 2: Convert to Highcharts format
-  const data = rawData.map(d => ({
+ const data = rawData.map(d => {
+  const cleanColor = d.color
+    .replace(/\r/g, "")
+    .replace(/"/g, "")
+    .trim();
+
+  return {
     x: d.x,
     y: d.y,
     z: d.z,
     name: d.series,
-    color: d.color.trim()
-  }));
+    color: cleanColor
+  };
+});
 
   data.forEach(d => console.log(d.color));
   

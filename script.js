@@ -9,26 +9,17 @@ async function loadCSV() {
     const cols = row.split(",");
 
     return {
-      series: cols[0],
+      name: cols[0],
       x: parseFloat(cols[1]),
       y: parseFloat(cols[2]),
       z: parseFloat(cols[3]),
-      color: cols[4]
+      color: cols[4].trim() 
     };
   });
 }
 
 async function drawChart() {
   const rawData = await loadCSV();
-
-  // Convert to Highcharts format (single series with styled points)
-  const data = rawData.map(d => ({
-    x: d.x,
-    y: d.y,
-    z: d.z,
-    color: d.color,
-    name: d.series
-  }));
 
   Highcharts.chart("container", {
     chart: {
@@ -60,6 +51,7 @@ async function drawChart() {
 
     series: [{
       name: "Data",
+      colorByPoint: false, 
       data: data
     }]
   });

@@ -9,17 +9,24 @@ async function loadCSV() {
     const cols = row.split(",");
 
     return {
-      name: cols[0],
+      series: cols[0],
       x: parseFloat(cols[1]),
       y: parseFloat(cols[2]),
       z: parseFloat(cols[3]),
-      color: cols[4].trim() 
+      color: cols[4]
     };
   });
 }
 
 async function drawChart() {
   const rawData = await loadCSV();
+  const data = rawData.map(d => ({
+    x: d.x,
+    y: d.y,
+    z: d.z,
+    color: d.color.trim(),
+    name: d.series
+  }));
 
   Highcharts.chart("container", {
     chart: {

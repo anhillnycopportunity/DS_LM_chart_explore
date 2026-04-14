@@ -1,33 +1,61 @@
 async function loadCSV() {
-  const response = await fetch('test_data.csv');
+  const response = await fetch("data.csv");
   const text = await response.text();
 
-  const rows = text.trim().split('\n').map(row => row.split(','));
+  const rows = text.trim().split("\n");
+  const header = rows.shift(); // remove header
 
-  const table = document.getElementById('csvTable');
-  table.innerHTML = '';
+  return rows.map(row => {
+    const cols = row.split(",");
 
-  // Header
-  const header = document.createElement('tr');
-  rows[0].forEach(col => {
-    const th = document.createElement('th');
-    th.textContent = col;
-    header.appendChild(th);
+    return {
+      series: cols[0],
+      x: parseFloat(cols[1]),
+      y: parseFloat(cols[2]),
+      color: cols[3]
+    };
   });
-  table.appendChild(header);
-
-  // Data rows
-  for (let i = 1; i < rows.length; i++) {
-    const tr = document.createElement('tr');
-
-    rows[i].forEach(cell => {
-      const td = document.createElement('td');
-      td.textContent = cell;
-      tr.appendChild(td);
-    });
-
-    table.appendChild(tr);
-  }
 }
 
-loadCSV();
+async function drawChart() {
+  const rawData = await loadCSV();
+
+  // Convert to Highcharts format (single series with styled points)
+  const data = rawData.map(d => ({
+    x: d.x,
+    y: d.y,
+    color: d.color,
+    name: d.series
+  }));
+
+  Highcharts.chart("container", {
+    chart: {
+      type: "scatter",
+      zoomType: "xy"
+    },
+
+    title: {
+      text: "CSV Scatter Plot"
+    },
+
+    xAxis: {
+      title: { text: "X" }
+    },
+
+    yAxis: {
+      title: { text: "Y" }
+    },
+
+    tooltip: {
+      pointFormat:
+        "<b>{point.name}</b><br/>x: {point.x}<br/>y: {point.y}"
+    },
+
+    series: [{
+      name: "Data",
+      data: data
+    }]
+  });
+}
+
+drawChart();

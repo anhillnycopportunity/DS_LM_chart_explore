@@ -34,13 +34,11 @@ async function drawChart() {
     chart: {
        type: 'bubble',
         plotBorderWidth: 1,
-        zooming: {
-            type: 'xy'
-        }
+        zoomType: "xy"
     },
 
     title: {
-      text: "CSV Scatter Plot"
+      text: "CSV Bubble Plot"
     },
 
     xAxis: {
@@ -52,8 +50,12 @@ async function drawChart() {
     },
 
     tooltip: {
+      useHTML: true,
       pointFormat:
-        "<b>{point.name}</b><br/>x: {point.x}<br/>y: {point.y}"
+        "<b>{point.name}</b><br/>" +
+        "x: {point.x}<br/>" +
+        "y: {point.y}<br/>" +
+        "z: {point.z}"
     },
 
     series: [{

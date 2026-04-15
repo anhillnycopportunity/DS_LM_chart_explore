@@ -21,21 +21,22 @@ async function loadCSV() {
 async function drawChart() {
   const rawData = await loadCSV();
 
-  // Step 2: Convert to Highcharts format
- const data = rawData.map(d => {
-  const cleanColor = d.color
-    .replace(/\r/g, "")
-    .replace(/"/g, "")
-    .trim();
+  const series = rawData.map(d => {
+    const cleanColor = d.color
+      .replace(/\r/g, "")
+      .replace(/"/g, "")
+      .trim();
 
-  return {
-    x: d.x,
-    y: d.y,
-    z: d.z,
-    name: d.series,
-    color: cleanColor
-  };
-});
+    return {
+      name: d.series, // this becomes legend label
+      data: [{
+        x: d.x,
+        y: d.y,
+        z: d.z
+      }],
+      color: cleanColor
+    };
+  });
 
   data.forEach(d => console.log(d.color));
   
@@ -118,11 +119,7 @@ async function drawChart() {
         "z: {point.z}"
     },
 
-    series: [{
-      name: "Data",
-      colorByPoint: false, 
-      data: data
-    }]
+    series: series
   });
 }
 

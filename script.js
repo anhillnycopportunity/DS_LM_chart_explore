@@ -47,15 +47,66 @@ async function drawChart() {
     },
 
     title: {
-      text: "CSV Bubble Plot"
+      text: "Job Characteristics by Industry in New York City, 2024"
     },
 
-    xAxis: {
-      title: { text: "X" }
+    subtitle: {
+        text: 'Source: Census Bureaus American Community Survey One-Year Public Use Micorodata'
+    },
+
+
+    legend: {
+        enabled: true
+    },
+
+     xAxis: {
+        gridLineWidth: 1,
+        title: {
+            text: 'Ratio of Part-Time to Full-Time Workers'
+        },
+        labels: {
+            format: '{value}'
+        },
+        plotLines: [{
+            dashStyle: 'dot',
+            width: 2,
+            value: .5,
+            label: {
+                rotation: 0,
+                y: 50,
+                style: {
+                    fontStyle: 'italic'
+                },
+                text: 'Ratio Part-time Full-time'
+            },
+            zIndex: 3
+        }]
     },
 
     yAxis: {
-      title: { text: "Y" }
+        startOnTick: false,
+        endOnTick: false,
+        title: {
+            text: 'Percent Industry Median to Citywide Median Wage'
+        },
+        labels: {
+            format: '{value}%'
+        },
+        maxPadding: .1,
+        plotLines: [{
+            dashStyle: 'dot',
+            width: 2,
+            value: 100,
+            label: {
+                align: 'right',
+                style: {
+                    fontStyle: 'italic'
+                },
+                text: 'Equal to Citywide Median Wage',
+                x: 0.5
+            },
+            zIndex: 3
+        }]
     },
 
     tooltip: {

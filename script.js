@@ -38,7 +38,6 @@ async function drawChart() {
     };
   });
 
-  data.forEach(d => console.log(d.color));
   
   Highcharts.chart("container", {
     chart: {

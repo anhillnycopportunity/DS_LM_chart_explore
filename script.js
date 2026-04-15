@@ -96,7 +96,7 @@ async function drawChart() {
         plotLines: [{
             dashStyle: 'dot',
             width: 2,
-            value: 100,
+            value: 1,
             label: {
                 align: 'right',
                 style: {

@@ -112,7 +112,7 @@ async function drawChart() {
     tooltip: {
       useHTML: true,
       pointFormat:
-        "<b>{point.name}</b><br/>" +
+        "<b>{series.name}</b><br/>" +
         "x: {point.x}<br/>" +
         "y: {point.y}<br/>" +
         "z: {point.z}"
